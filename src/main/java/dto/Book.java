@@ -17,6 +17,7 @@ public class Book implements Serializable{
 	private String releaseDate;
 	private String condition;
 	private String filename;
+	private int quantity;
 	
 	public Book() {
 		super();
@@ -100,13 +101,17 @@ public class Book implements Serializable{
 		this.name = name;
 	}
 
-	public String getBookId() { return bookId; }
+	public String getBookId() {
+		return bookId;
+	}
 	
 	public void setBookId(String bookId) {
 		this.bookId=bookId;
 	}
 	
-	public String getName() { return name; }
+	public String getName() {
+		return name;
+	}
 	
 	public String getFilename() {
 		return filename;
@@ -116,5 +121,12 @@ public class Book implements Serializable{
 		this.filename=filename;
 	}
 	
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	public void setQuantity(int quantity) {
+		this.quantity=quantity;
+	}
 	
 }
