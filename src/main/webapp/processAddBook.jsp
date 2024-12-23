@@ -4,6 +4,8 @@
 <%@ page import="com.oreilly.servlet.*" %>
 <%@ page import="com.oreilly.servlet.multipart.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.sql.*" %>
+<%@ include file="dbconn.jsp" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 
@@ -43,22 +45,28 @@
 	else
 		stock=Long.valueOf(unitsInStock);
 	
-	BookRepository dao=BookRepository.getInstance();
+	PreparedStatement pstmt=null;
 	
-	Book newBook=new Book();
-	newBook.setBookId(bookId);
-	newBook.setName(name);
-	newBook.setUnitPrice(price);
-	newBook.setAuthor(author);
-	newBook.setPublisher(publisher);
-	newBook.setPublisher(releaseDate);
-	newBook.setDescription(description);
-	newBook.setCategory(category);
-	newBook.setUnitsInStock(stock);
-	newBook.setCondition(condition);
-	newBook.setFilename(filename);
+	String sql="INSERT INTO book VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	
-	dao.addBook(newBook);
+	pstmt=conn.prepareStatement(sql);
+	pstmt.setString(1, bookId);
+	pstmt.setString(2, name);
+	pstmt.setInt(3, price);
+	pstmt.setString(4, author);
+	pstmt.setString(5, description);
+	pstmt.setString(6, publisher);
+	pstmt.setString(7, category);
+	pstmt.setLong(8, stock);
+	pstmt.setString(9, releaseDate);
+	pstmt.setString(10, condition);
+	pstmt.setString(11, filename);
+	pstmt.executeUpdate();
+
+	if(pstmt!=null)
+		pstmt.close();
+	if(conn!=null)
+		conn.close();
 	
 	response.sendRedirect("books.jsp");
 %>
