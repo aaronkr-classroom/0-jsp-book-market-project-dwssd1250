@@ -4,6 +4,15 @@
 <head>
     <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
     <title>도서 편집</title>
+    <script type="text/javascript">
+    function deleteConfirm(id) {
+        if (confirm("해당 도서를 삭제합니다!") == true)
+            location.href = "./deleteBook.jsp?id=" + id;
+        else
+            return;
+    }
+</script>
+    
 </head>
 <%
     String edit = request.getParameter("edit");
@@ -40,6 +49,10 @@
                     if (edit.equals("update")) {
                 %>
                 <a href="./updateBook.jsp?id=<%=rs.getString("b_id")%>" class="btn btn-success" role="button">수정 &raquo;</a>
+                <%
+  					} else if (edit.equals("delete")) {
+				%>
+				<a href="#" onclick="deleteConfirm('<%=rs.getString("b_id")%>')" class="btn btn-danger" role="button">삭제 &raquo;</a>
                 <%
                     }
                 %>
